@@ -32,7 +32,7 @@ public class TablesPanel extends BasePanel {
         createTablesButton();
     }
     public void createTablesButton() {
-        JLabel tableLabel = new JLabel("Маси:");
+        JLabel tableLabel = new JLabel("Tables:");
         add(tableLabel);
         tableLabel.setBounds(5, 53, 120, 40);
         tableLabel.setHorizontalAlignment(SwingConstants.CENTER);

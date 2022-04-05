@@ -49,22 +49,22 @@ public class MainDataProvider {
     }
 
     public void showErrorMessage(String message) {
-        JOptionPane.showMessageDialog(null, message, "Грешка", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     public int showQuestionMessage(String message) {
         return JOptionPane.showConfirmDialog(null, message,
-                "Внимание!", JOptionPane.YES_NO_OPTION);
+                "Attention!", JOptionPane.YES_NO_OPTION);
     }
 
     public int showInputDialog(String message) {
         Integer[] option = {0, 10, 20, 30, 50};
-        int discount = (Integer) (JOptionPane.showInputDialog(null, message, "Моля изберете", JOptionPane.QUESTION_MESSAGE, null, option, option[2]));
+        int discount = (Integer) (JOptionPane.showInputDialog(null, message, "Please select", JOptionPane.QUESTION_MESSAGE, null, option, option[2]));
         return discount;
     }
 
     public void backButtonConfigure(JButton backButton) {
-        backButton.setText("<= назад");
+        backButton.setText("<= back");
         backButton.setBounds(5, 5, 120, 44);
         backButton.setBackground(new Color(255, 180, 100));
 

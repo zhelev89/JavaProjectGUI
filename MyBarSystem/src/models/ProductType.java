@@ -1,10 +1,10 @@
 package models;
 
 public enum ProductType {
-    Алкохолни,
-    Вино,
-    Бира,
-    Безалкохолни,
-    ТоплиНапитки,
-    Храни
+    Alcoholic,
+    Wine,
+    Beer,
+    NonAlcoholic,
+    HotDrinks,
+    Food
 }

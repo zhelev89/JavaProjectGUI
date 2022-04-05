@@ -27,7 +27,7 @@ public class Order {
     }
 
     public String getTime() {
-        return this.time + "ч";
+        return this.time + "h";
     }
 
     public int getTableNumber() {
@@ -59,7 +59,7 @@ public class Order {
 
     public String getTotalAmountString() {
         decimalFormat = new DecimalFormat("0.00");
-        return decimalFormat.format(getTotalAmount()) + " лв.";
+        return decimalFormat.format(getTotalAmount()) + " BGN";
     }
 
     public String getProductsCount() {
@@ -88,6 +88,6 @@ public class Order {
 
     public String getProductPriceString () {
         decimalFormat = new DecimalFormat("0.00");
-        return decimalFormat.format(getProductPrice()) + " лв";
+        return decimalFormat.format(getProductPrice()) + " BGN";
     }
 }

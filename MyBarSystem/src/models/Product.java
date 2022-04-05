@@ -69,7 +69,7 @@ public class Product {
 
     public String getPriceString() {
         decimalFormat = new DecimalFormat("0.00");
-        return decimalFormat.format(this.price) + " лв.";
+        return decimalFormat.format(this.price) + " BGN";
     }
 
     public double getTotalPrice() {
@@ -78,7 +78,7 @@ public class Product {
 
     public String getTotalPriceString() {
         decimalFormat = new DecimalFormat("0.00");
-        return decimalFormat.format(getTotalPrice()) + " лв";
+        return decimalFormat.format(getTotalPrice()) + " BGN";
     }
 
     public void setBrand(String brand) {
