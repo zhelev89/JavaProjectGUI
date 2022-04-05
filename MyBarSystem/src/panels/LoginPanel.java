@@ -23,7 +23,7 @@ public class LoginPanel extends BasePanel {
     }
 
     public void createComponent() {
-        loginLabel = new JLabel("Добре дошли в Advance Bar");
+        loginLabel = new JLabel("Welcome to Advance Bar");
         add(loginLabel);
         loginLabel.setHorizontalAlignment(SwingConstants.CENTER);
         loginLabel.setBounds(frame.getWidth() / 2 - 130, 20, 260, 30);
@@ -41,7 +41,7 @@ public class LoginPanel extends BasePanel {
             }
         });
 
-        loginButton = new JButton("Влез");
+        loginButton = new JButton("Login");
         add(loginButton);
         loginButton.setBounds(frame.getWidth() / 2 - 50, 100, 100, 44);
         loginButton.setBackground(new Color(255, 180, 100));
@@ -53,7 +53,7 @@ public class LoginPanel extends BasePanel {
                     frame.router.showTablesPanel();
 
                 } else {
-                    frame.dataProvider.showErrorMessage("Грешен пин код");
+                    frame.dataProvider.showErrorMessage("Wrong pin code");
                 }
             }
         });

@@ -50,7 +50,6 @@ public class OrdersPanel extends BasePanel {
         createOrderButtons();
         createOrderTable();
         createProductTable();
-        //createCategoriesButton();
         createCategoriesButtonPanel();
 
         refresh();
@@ -71,7 +70,7 @@ public class OrdersPanel extends BasePanel {
         frame.dataProvider.loggedNameLabel(loggedNameLabel);
         add(loggedNameLabel);
 
-        JLabel tableNumberLabel = new JLabel("Маса: " + this.tableNumber);
+        JLabel tableNumberLabel = new JLabel("Table: " + this.tableNumber);
         tableNumberLabel.setBounds(330, 5, 60, 30);
         tableNumberLabel.setHorizontalAlignment(SwingConstants.CENTER);
         tableNumberLabel.setFont(new Font(Font.SERIF, Font.BOLD, 14));
@@ -81,7 +80,7 @@ public class OrdersPanel extends BasePanel {
     }
 
     public void createOrderButtons() {
-        JButton createOrderButton = new JButton("Създай");
+        JButton createOrderButton = new JButton("Create");
         createOrderButton.setBounds(505, 54, 120, 44);
         createOrderButton.setBackground(new Color(255, 180, 100));
         createOrderButton.addActionListener(new ActionListener() {
@@ -92,25 +91,25 @@ public class OrdersPanel extends BasePanel {
         });
         add(createOrderButton);
 
-        JButton finishOrderButton = new JButton("Приключи");
+        JButton finishOrderButton = new JButton("Complete");
         finishOrderButton.setBounds(630, 54, 120, 44);
         finishOrderButton.setBackground(new Color(255, 180, 100));
         finishOrderButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (selectedOrder == null) {
-                    frame.dataProvider.showErrorMessage("Нямате избрана поръчка!");
+                    frame.dataProvider.showErrorMessage("You have no order selected!");
                     return;
                 }
-                if (frame.dataProvider.showQuestionMessage("Приключване на сметка?") == JOptionPane.YES_NO_OPTION) {
+                if (frame.dataProvider.showQuestionMessage("Complete the order?") == JOptionPane.YES_NO_OPTION) {
                     //Pop up for extract for cashier note
-                    String orderNumber = "Поръчка: " + selectedOrder.getUidString();
-                    String time = "Час: " + OrdersPanel.super.time.format(currentlyDate);
-                    String numbersOfProduct = "Брой артикули: " + selectedOrder.getProductsCount();
-                    String percentDiscount = "Намаление: " + selectedOrder.getDiscountPercent() + "%";
-                    String totalPrice = "Обща сума: " + selectedOrder.getTotalAmountString();
+                    String orderNumber = "Order: " + selectedOrder.getUidString();
+                    String time = "Time: " + OrdersPanel.super.time.format(currentlyDate);
+                    String numbersOfProduct = "Number of items: " + selectedOrder.getProductsCount();
+                    String percentDiscount = "Discount: " + selectedOrder.getDiscountPercent() + "%";
+                    String totalPrice = "Total: " + selectedOrder.getTotalAmountString();
                     String lineSep = System.lineSeparator();
-                    String result = "Касова бележка:" + lineSep + lineSep +
+                    String result = "Receipt:" + lineSep + lineSep +
                             orderNumber + lineSep +
                             time + lineSep +
                             numbersOfProduct + lineSep +
@@ -148,7 +147,7 @@ public class OrdersPanel extends BasePanel {
         });
         add(decreaseProductButton);
 
-        JButton discountButton = new JButton("Отстъпка %");
+        JButton discountButton = new JButton("Discount %");
         discountButton.setBounds(755, 495, 120, 44);
         discountButton.setBackground(Color.cyan);
         discountButton.addActionListener(new ActionListener() {
@@ -156,13 +155,13 @@ public class OrdersPanel extends BasePanel {
             public void actionPerformed(ActionEvent e) {
                 if (selectedOrder != null) {
                     try {
-                        int discount = frame.dataProvider.showInputDialog("Изберете процент отстъпка!");
+                        int discount = frame.dataProvider.showInputDialog("Please select a percentage!");
                         selectedOrder.setDiscountPercent(discount);
                         refresh();
                     } catch (NullPointerException ignored) {
                     }
                 } else {
-                    frame.dataProvider.showErrorMessage("Нямате избрана поръчка!");
+                    frame.dataProvider.showErrorMessage("You have no selected order!");
                 }
             }
 
@@ -204,7 +203,7 @@ public class OrdersPanel extends BasePanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if (selectedOrder == null) {
-                        frame.dataProvider.showErrorMessage("Нямате избрана поръчка!");
+                        frame.dataProvider.showErrorMessage("You have no selected order!");
                     } else {
                         if (selectedOrder.getTableNumber() == tableNumber) {
                             boolean isProductFound = false;
@@ -229,25 +228,25 @@ public class OrdersPanel extends BasePanel {
             categoriesButtonPanel.add(productButton);
 
 
-            if (product.getSubtype().equals("Уиски")) {
+            if (product.getSubtype().equals("Whiskey")) {
                 productButton.setBackground(Color.pink);
-            } else if (product.getSubtype().equals("Водка")) {
+            } else if (product.getSubtype().equals("Vodka")) {
                 productButton.setBackground(Color.cyan);
-            } else if (product.getSubtype().equals("Сокове")) {
+            } else if (product.getSubtype().equals("Juices")) {
                 productButton.setBackground(Color.yellow);
-            } else if (product.getSubtype().equals("Безалк.")) {
+            } else if (product.getSubtype().equals("NonAlcoholic")) {
                 productButton.setBackground(Color.green);
-            } else if (product.getSubtype().equals("Мин.Вода")) {
+            } else if (product.getSubtype().equals("Water")) {
                 productButton.setBackground(Color.CYAN);
-            } else if (product.getTypeString().equals("Бира")) {
+            } else if (product.getTypeString().equals("Beer")) {
                 productButton.setBackground(new Color(200, 200, 100));
-            } else if (product.getTypeString().equals("ТоплиНапитки")) {
+            } else if (product.getTypeString().equals("HotDrinks")) {
                 productButton.setBackground(Color.gray);
-            } else if (product.getTypeString().equals("Храни")) {
+            } else if (product.getTypeString().equals("Food")) {
                 productButton.setBackground(Color.white);
-            } else if (product.getSubtype().equals("Червено вино")) {
+            } else if (product.getSubtype().equals("Red wine")) {
                 productButton.setBackground(new Color(200, 100, 100));
-            } else if (product.getSubtype().equals("Бяло вино")) {
+            } else if (product.getSubtype().equals("White wine")) {
                 productButton.setBackground(new Color(255, 240, 220));
             }
             productButton.setBounds(x, y, 120, 44);
@@ -257,14 +256,13 @@ public class OrdersPanel extends BasePanel {
                 y += 49;
             }
         }
-        JButton backButton = new JButton("Върни се");
+        JButton backButton = new JButton("Back");
         backButton.setBounds(x, y, 120, 44);
         backButton.setBackground(new Color(255, 180, 100));
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                //removeAllButton();
                 categoriesButtonPanel.removeAll();
                 createCategoriesButton();
                 repaint();
@@ -272,7 +270,6 @@ public class OrdersPanel extends BasePanel {
             }
         });
         categoriesButtons.add(backButton);
-        //add(backButton);
         categoriesButtonPanel.add(backButton);
     }
 
@@ -288,7 +285,6 @@ public class OrdersPanel extends BasePanel {
             categoryButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    //removeAllButton();
                     categoriesButtonPanel.removeAll();
                     createProductButton(category.getType());
                     repaint();
@@ -296,20 +292,19 @@ public class OrdersPanel extends BasePanel {
                 }
             });
             categoriesButtons.add(categoryButton);
-            //add(categoryButton);
             categoriesButtonPanel.add(categoryButton);
 
-            if (category.getTitle().equals("Алкохол")) {
+            if (category.getTitle().equals("Alcohol")) {
                 categoryButton.setBackground(Color.cyan);
-            } else if (category.getTitle().equals("Безалкохолни")) {
+            } else if (category.getTitle().equals("NonAlcohol")) {
                 categoryButton.setBackground(Color.green);
-            } else if (category.getTitle().equals("Бира")) {
+            } else if (category.getTitle().equals("Beer")) {
                 categoryButton.setBackground(Color.ORANGE);
-            } else if (category.getTitle().equals("Топли напитки")) {
+            } else if (category.getTitle().equals("HotDrinks")) {
                 categoryButton.setBackground(Color.gray);
-            } else if (category.getTitle().equals("Храни")) {
+            } else if (category.getTitle().equals("Food")) {
                 categoryButton.setBackground(Color.white);
-            } else if (category.getTitle().equals("Вино")) {
+            } else if (category.getTitle().equals("Wine")) {
                 categoryButton.setBackground(new Color(255, 240, 220));
             }
             categoryButton.setBounds(x, y, 120, 44);
@@ -322,7 +317,7 @@ public class OrdersPanel extends BasePanel {
     }
 
     public void createOrderTable() {
-        String[] columns = {"Поръчка номер", "Час", "Брой артикул", "Сума"};
+        String[] columns = {"Order number", "Time", "Number of items", "Total"};
         orderTableModel = new DefaultTableModel();
         orderTableModel.setColumnIdentifiers(columns);
         orderTable = new JTable(orderTableModel);
@@ -348,7 +343,7 @@ public class OrdersPanel extends BasePanel {
     }
 
     public void createProductTable() {
-        String[] columns = {"Продукти", "Количество", "Цена", "Обща цена"};
+        String[] columns = {"Items", "Quantity", "Price", "Total price"};
         productTableModel = new DefaultTableModel();
         productTableModel.setColumnIdentifiers(columns);
         productTable = new JTable(productTableModel);
@@ -382,12 +377,12 @@ public class OrdersPanel extends BasePanel {
                 productTable.setRowSelectionInterval(currentlySelectedProductRow, currentlySelectedProductRow);
             }
         } else {
-            frame.dataProvider.showErrorMessage("Нямате избран продукт!");
+            frame.dataProvider.showErrorMessage("You have no selected product!");
         }
     }
 
     public void createOrderAction() {
-        if (frame.dataProvider.showQuestionMessage("Искате ли да създадете нова поръчка?") == 0) {
+        if (frame.dataProvider.showQuestionMessage("Do you want to create a new order?") == 0) {
             int uid = frame.dataProvider.orders.size() + 1;
             String time = super.time.format(super.currentlyDate);
             Order order = new Order(uid, time, tableNumber, new ArrayList<>());
@@ -408,16 +403,4 @@ public class OrdersPanel extends BasePanel {
         frame.dataProvider.loadProductIntTable(productTableModel, selectedOrder);
     }
 
-    public void removeAllButton() {
-        if (categoriesButtons != null) {
-            for (JButton button : categoriesButtons) {
-                remove(button);
-            }
-        }
-        if (productsButtons != null) {
-            for (JButton button : productsButtons) {
-                remove(button);
-            }
-        }
-    }
 }

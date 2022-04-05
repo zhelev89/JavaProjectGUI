@@ -22,7 +22,7 @@ public class BasePanel extends JPanel {
         currentlyDate = new Date();
         date = new SimpleDateFormat("dd.MM.yy");
         time = new SimpleDateFormat("HH:mm");
-        JLabel dateLabel = new JLabel("Дата: " + date.format(currentlyDate) + "г. " + time.format(currentlyDate));
+        JLabel dateLabel = new JLabel("Date: " + date.format(currentlyDate) + " / " + time.format(currentlyDate));
         add(dateLabel);
         dateLabel.setBounds(frame.getWidth() - 160, 0, 160, 30);
         dateLabel.setFont(new Font(Font.SERIF, Font.BOLD, 14));
