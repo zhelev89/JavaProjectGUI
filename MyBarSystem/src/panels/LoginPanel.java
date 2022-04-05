@@ -41,7 +41,7 @@ public class LoginPanel extends BasePanel {
             }
         });
 
-        loginButton = new JButton("Login1");
+        loginButton = new JButton("Login");
         add(loginButton);
         loginButton.setBounds(frame.getWidth() / 2 - 50, 100, 100, 44);
         loginButton.setBackground(new Color(255, 180, 100));
