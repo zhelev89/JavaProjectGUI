@@ -3,17 +3,17 @@ package com.example.myBarSystemAPI.models;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Data
 @Entity
-@Table(name = "user_type")
-public class UserType {
+public class ProductType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "type", nullable = false)
+    @NotNull
+    @Column(name = "types", nullable = false)
     private String type;
-
 }
