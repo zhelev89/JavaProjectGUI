@@ -1,6 +1,8 @@
 package com.example.myBarSystemAPI.models;
 
+import com.example.myBarSystemAPI.dataTransferObjects.userTypes.UserTypeResponse;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,9 +10,10 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Data
-@Entity
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 @Table(name = "users")
 public class User {
 
@@ -28,7 +31,7 @@ public class User {
 
     @NotNull
     @Column(name = "pin", nullable = false, unique = true)
-    private String pin;
+    private String pinCode;
 
     @ManyToOne
     private UserType userType;

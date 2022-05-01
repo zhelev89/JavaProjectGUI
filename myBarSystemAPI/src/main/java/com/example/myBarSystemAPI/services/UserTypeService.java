@@ -1,8 +1,22 @@
 package com.example.myBarSystemAPI.services;
 
-import org.springframework.stereotype.Service;
+import com.example.myBarSystemAPI.models.UserType;
 
-@Service
-public class UserTypeService {
+import java.util.Set;
 
+public interface UserTypeService {
+
+    UserType save(UserType userType);
+
+    Set<UserType> findAll();
+
+    UserType findById(Integer id);
+
+    UserType findByType(String name);
+
+    UserType update(UserType updatedUserType, Integer id);
+
+    void deleteById(Integer id);
+
+    void deleteByType(String type);
 }
