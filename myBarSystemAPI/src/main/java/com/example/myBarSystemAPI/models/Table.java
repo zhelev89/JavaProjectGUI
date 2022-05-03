@@ -6,21 +6,21 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
-@Data
-@Builder
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "user_types")
-public class UserType {
+@Data
+@Builder
+@javax.persistence.Table(name = "tables")
+public class Table {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "type", nullable = false)
-    private String type;
-
+    @NotNull
+    @Column(name = "number", nullable = false, unique = true)
+    private Integer number;
 }

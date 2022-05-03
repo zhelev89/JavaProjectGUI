@@ -3,10 +3,12 @@ package com.example.myBarSystemAPI.models;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Data
 @Entity
+@Table(name = "product_types")
 public class ProductType {
 
     @Id
