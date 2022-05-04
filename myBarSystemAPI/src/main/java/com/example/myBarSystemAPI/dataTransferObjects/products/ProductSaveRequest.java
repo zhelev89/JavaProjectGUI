@@ -1,2 +1,4 @@
-package com.example.myBarSystemAPI.dataTransferObjects.products;public class ProductSaveRequest {
+package com.example.myBarSystemAPI.dataTransferObjects.products;
+
+public class ProductSaveRequest {
 }

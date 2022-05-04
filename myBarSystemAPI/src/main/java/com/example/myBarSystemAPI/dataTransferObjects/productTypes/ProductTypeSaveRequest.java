@@ -1,2 +1,9 @@
-package com.example.myBarSystemAPI.dataTransferObjects.productTypes;public class ProductTypeSaveRequest {
+package com.example.myBarSystemAPI.dataTransferObjects.productTypes;
+
+import lombok.Data;
+
+@Data
+public class ProductTypeSaveRequest {
+
+    private String type;
 }
