@@ -1,26 +1,21 @@
 package models;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Order {
     private int uid = 0;
     private String time;
     private int tableNumber;
     private ArrayList<Product> products;
     private int discountPercent;
-    private DecimalFormat decimalFormat;
-
-    public Order(int uid, String time, int tableNumber, ArrayList<Product> products) {
-        this.uid = uid;
-        this.time = time;
-        this.tableNumber = tableNumber;
-        this.products = products;
-    }
-
-    public int getUid() {
-        return uid;
-    }
 
     public String getUidString() {
         return Integer.toString(getUid());
@@ -30,16 +25,8 @@ public class Order {
         return this.time + "h";
     }
 
-    public int getTableNumber() {
-        return tableNumber;
-    }
-
     public ArrayList<Product> getProducts() {
         return products;
-    }
-
-    public int getDiscountPercent() {
-        return discountPercent;
     }
 
     public void setDiscountPercent(int discountPercent) {
@@ -58,7 +45,7 @@ public class Order {
     }
 
     public String getTotalAmountString() {
-        decimalFormat = new DecimalFormat("0.00");
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
         return decimalFormat.format(getTotalAmount()) + " BGN";
     }
 
@@ -87,7 +74,7 @@ public class Order {
     }
 
     public String getProductPriceString () {
-        decimalFormat = new DecimalFormat("0.00");
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
         return decimalFormat.format(getProductPrice()) + " BGN";
     }
 }

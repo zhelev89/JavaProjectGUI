@@ -1,59 +1,69 @@
 package database;
-
 import models.*;
-
-import java.util.ArrayList;
+import java.util.*;
 
 public class Database {
 
-    public static ArrayList<User> getUsers() {
+    private List<Table> tables;
 
-        ArrayList<User> users = new ArrayList<>();
+    public static Set<User> getUsers() {
 
-        User user1 = new User("Silvia Ivanova", "0899123123", "0101", UserType.Waitress);
-        User user2 = new User("Maria Georgieva", "0882882882", "2222", UserType.Waitress);
-        User user3 = new User("Zhivko Zhelev", "0899123999", "0000", UserType.Manager);
+        Set<User> users = new HashSet<>();
+
+       /* User user1 = new User("Silvia Ivanova", "0899123123", "0101", new UserType(2, "Waitress"));
+        User user2 = new User("Maria Georgieva", "0882882882", "2222", new UserType(2, "Waitress"));
+        User user3 = new User("Zhivko Zhelev", "0899123999", "0000", new UserType(1, "Manager"));
+        User user4 = new User("Admin", "0000000000", "9999", new UserType(9, "Admin"));
 
         users.add(user1);
         users.add(user2);
         users.add(user3);
+        users.add(user4);
+
+        */
         return users;
     }
 
-    public static ArrayList<Product> getProducts() {
+    /*
+    public static Set<Product> getProducts() {
 
-        ArrayList<Product> products = new ArrayList<>();
+        Set<Product> products = new HashSet<>();
 
-        Product a1 = new Product("a1", ProductType.Alcoholic, "Whiskey", "Jack Daniels", 5.00, 140);
-        Product a2 = new Product("a2", ProductType.Alcoholic, "Whiskey", "Johnny Walker", 4.50, 140);
-        Product a3 = new Product("a3", ProductType.Alcoholic, "Whiskey", "Bushmills", 4.50, 140);
-        Product a4 = new Product("a4", ProductType.Alcoholic, "Whiskey", "Black Ram", 3.00, 140);
-        Product a5 = new Product("a5", ProductType.Alcoholic, "Whiskey", "Passport", 4.00, 140);
-        Product b1 = new Product("b1", ProductType.Alcoholic, "Vodka", "Beluga", 5.00, 140);
-        Product b2 = new Product("b2", ProductType.Alcoholic, "Vodka", "Russian Standard", 4.50, 140);
-        Product b3 = new Product("b3", ProductType.Alcoholic, "Vodka", "Absolute", 3.50, 140);
-        Product b4 = new Product("b4", ProductType.Alcoholic, "Vodka", "Flirt", 2.00, 140);
-        Product b5 = new Product("b5", ProductType.Alcoholic, "Vodka", "Savoy", 2.00, 140);
-        Product c1 = new Product("c1", ProductType.Beer, "Beer", "Haineken", 4.00, 140);
-        Product c2 = new Product("c2", ProductType.Beer, "Beer", "Stella Artois", 4.00, 140);
-        Product c3 = new Product("c3", ProductType.Beer, "Beer", "Zagorka", 2.50, 140);
-        Product c4 = new Product("c4", ProductType.Beer, "Beer", "Kamenitca", 2.50, 140);
-        Product d1 = new Product("d1", ProductType.NonAlcoholic, "Juices", "Cappy", 4.50, 100);
-        Product d2 = new Product("d2", ProductType.NonAlcoholic, "Juices", "Queens", 4.50, 100);
-        Product e1 = new Product("e1", ProductType.NonAlcoholic, "NonAlcoholic", "Coca Cola", 2.20, 100);
-        Product e2 = new Product("e2", ProductType.NonAlcoholic, "NonAlcoholic", "Fanta", 2.20, 100);
-        Product e3 = new Product("e3", ProductType.NonAlcoholic, "NonAlcoholic", "Sprite", 2.20, 100);
-        Product e4 = new Product("e4", ProductType.NonAlcoholic, "NonAlcoholic", "Soda", 2.00, 100);
-        Product f1 = new Product("f1", ProductType.NonAlcoholic, "Water", "Devin 0.330л", 2.00, 100);
-        Product f2 = new Product("f2", ProductType.NonAlcoholic, "Water", "Devin 1.500л", 4.50, 100);
-        Product g1 = new Product("g1", ProductType.HotDrinks, "Coffee", "Espresso", 2.50, 100);
-        Product g2 = new Product("g2", ProductType.HotDrinks, "Coffee", "Coffee whit milk", 3.00, 100);
-        Product g3 = new Product("g3", ProductType.HotDrinks, "Coffee", "Cappuccino", 3.00, 100);
-        Product k1 = new Product("k1", ProductType.Food, "Nuts", "Almonds", 5.00, 30);
-        Product k2 = new Product("k2", ProductType.Food, "Nuts", "Peanuts", 5.00, 30);
-        Product l1 = new Product("l1", ProductType.Wine, "Red wine", "Mavrud Asenovgrad", 5.00, 100);
-        Product l2 = new Product("l1", ProductType.Wine, "Red wine", "Cherga", 5.00, 100);
-        Product l3 = new Product("l1", ProductType.Wine, "White wine", "Misket", 5.00, 100);
+        ProductType alcoholics = new ProductType(1, "Alcoholics");
+        ProductType nonAlcoholics = new ProductType(2, "NonAlcoholics");
+        ProductType hotDrinks = new ProductType(3, "HotDrinks");
+        ProductType foods = new ProductType(4, "Foods");
+
+        Product a1 = new Product("a1", alcoholics, "Whiskey", "Jack Daniels", 5.00, 140, 1);
+        Product a2 = new Product("a2", alcoholics, "Whiskey", "Johnny Walker", 4.50, 140, 1);
+        Product a3 = new Product("a3", alcoholics, "Whiskey", "Bushmills", 4.50, 140, 1);
+        Product a4 = new Product("a4", alcoholics, "Whiskey", "Black Ram", 3.00, 140, 1);
+        Product a5 = new Product("a5", alcoholics, "Whiskey", "Passport", 4.00, 140, 1);
+        Product b1 = new Product("b1", alcoholics, "Vodka", "Beluga", 5.00, 140, 1);
+        Product b2 = new Product("b2", alcoholics, "Vodka", "Russian Standard", 4.50, 140, 1);
+        Product b3 = new Product("b3", alcoholics, "Vodka", "Absolute", 3.50, 140, 1);
+        Product b4 = new Product("b4", alcoholics, "Vodka", "Flirt", 2.00, 140, 1);
+        Product b5 = new Product("b5", alcoholics, "Vodka", "Savoy", 2.00, 140, 1);
+        Product c1 = new Product("c1", alcoholics, "Beer", "Haineken", 4.00, 140, 1);
+        Product c2 = new Product("c2", alcoholics, "Beer", "Stella Artois", 4.00, 140, 1);
+        Product c3 = new Product("c3", alcoholics, "Beer", "Zagorka", 2.50, 140, 1);
+        Product c4 = new Product("c4", alcoholics, "Beer", "Kamenitca", 2.50, 140, 1);
+        Product d1 = new Product("d1", nonAlcoholics, "Juices", "Cappy", 4.50, 100, 1);
+        Product d2 = new Product("d2", nonAlcoholics, "Juices", "Queens", 4.50, 100, 1);
+        Product e1 = new Product("e1", nonAlcoholics, "NonAlcoholics", "Coca Cola", 2.20, 100, 1);
+        Product e2 = new Product("e2", nonAlcoholics, "NonAlcoholics", "Fanta", 2.20, 100, 1);
+        Product e3 = new Product("e3", nonAlcoholics, "NonAlcoholics", "Sprite", 2.20, 100, 1);
+        Product e4 = new Product("e4", nonAlcoholics, "NonAlcoholics", "Soda", 2.00, 100, 1);
+        Product f1 = new Product("f1", nonAlcoholics, "Water", "Devin 0.330л", 2.00, 100, 1);
+        Product f2 = new Product("f2", nonAlcoholics, "Water", "Devin 1.500л", 4.50, 100, 1);
+        Product g1 = new Product("g1", hotDrinks, "Coffee", "Espresso", 2.50, 100, 1);
+        Product g2 = new Product("g2", hotDrinks, "Coffee", "Coffee whit milk", 3.00, 100, 1);
+        Product g3 = new Product("g3", hotDrinks, "Coffee", "Cappuccino", 3.00, 100, 1);
+        Product k1 = new Product("k1", foods, "Nuts", "Almonds", 5.00, 30, 1);
+        Product k2 = new Product("k2", foods, "Nuts", "Peanuts", 5.00, 30, 1);
+        Product l1 = new Product("l1", alcoholics, "Red wine", "Mavrud Asenovgrad", 5.00, 100, 1);
+        Product l2 = new Product("l1", alcoholics, "Red wine", "Cherga", 5.00, 100, 1);
+        Product l3 = new Product("l1", alcoholics, "White wine", "Misket", 5.00, 100, 1);
 
         products.add(a1);
         products.add(a2);
@@ -89,32 +99,49 @@ public class Database {
         return products;
     }
 
-    public static ArrayList<Integer> getTables () {
+     */
 
-        ArrayList<Integer> tables = new ArrayList<>();
-        tables.add(1);
-        tables.add(2);
-        tables.add(3);
-        tables.add(4);
-        tables.add(5);
-        tables.add(6);
-        tables.add(7);
-        tables.add(8);
-        tables.add(9);
-        tables.add(10);
-        tables.add(11);
-        tables.add(12);
+    /*public static List<Table> getTables() {
+
+        List<Table> tables = new ArrayList<>();
+        Table table1 = new Table(null, 1);
+        Table table2 = new Table(null, 2);
+        Table table3 = new Table(null, 3);
+        Table table4 = new Table(null, 4);
+        Table table5 = new Table(null, 5);
+        Table table6 = new Table(null, 6);
+        Table table7 = new Table(null, 7);
+        Table table8 = new Table(null, 8);
+        Table table9 = new Table(null, 9);
+        Table table10 = new Table(null, 10);
+        Table table11 = new Table(null, 11);
+        Table table12 = new Table(null, 12);
+
+        tables.add(table1);
+        tables.add(table2);
+        tables.add(table3);
+        tables.add(table4);
+        tables.add(table5);
+        tables.add(table6);
+        tables.add(table7);
+        tables.add(table8);
+        tables.add(table9);
+        tables.add(table10);
+        tables.add(table11);
+        tables.add(table12);
+
+
         return tables;
     }
 
-    public static ArrayList<Category> getCategories() {
-        ArrayList<Category> categories = new ArrayList<>();
-        categories.add(new Category(ProductType.Alcoholic, "Alcohol"));
-        categories.add(new Category(ProductType.Wine, "Wine"));
-        categories.add(new Category(ProductType.Beer, "Beer"));
-        categories.add(new Category(ProductType.NonAlcoholic, "NonAlcohol"));
-        categories.add(new Category(ProductType.HotDrinks, "HotDrinks"));
-        categories.add(new Category(ProductType.Food, "Food"));
+     */
+
+    public static List<Category> getCategories() {
+        List<Category> categories = new ArrayList<>();
+        categories.add(new Category(new ProductType(1, "Alcoholics"), "Alcoholic"));
+        categories.add(new Category(new ProductType(2, "NonAlcoholics"), "NonAlcoholics"));
+        categories.add(new Category(new ProductType(3, "HotDrinks"), "HotDrinks"));
+        categories.add(new Category(new ProductType(4, "Foods"), "Foods"));
         return categories;
     }
 }

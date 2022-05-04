@@ -43,7 +43,7 @@ public class TablesPanel extends BasePanel {
         for (int i = 0; i < frame.dataProvider.tables.size(); i++) {
 
 
-            Integer tablesNumber = frame.dataProvider.tables.get(i);
+            Integer tablesNumber = frame.dataProvider.tables.get(i).getNumber();
             JButton tableButton = new JButton(Integer.toString(tablesNumber));
             panel.add(tableButton);
 
@@ -60,7 +60,7 @@ public class TablesPanel extends BasePanel {
                 x = 5;
                 y += 85;
             }
-            if (!isBusy(frame.dataProvider.tables.get(i))) {
+            if (!isBusy(frame.dataProvider.tables.get(i).getNumber())) {
                 tableButton.setBackground(new Color(150, 220, 0));
             } else {
                 isBusy = true;

@@ -16,6 +16,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 public class OrdersPanel extends BasePanel {
 
@@ -33,19 +35,19 @@ public class OrdersPanel extends BasePanel {
     private JTable productTable;
     private Product selectedProduct;
     private int currentlySelectedProductRow;
-    private ArrayList<Product> products;
+    private List<Product> products;
     //Buttons
-    private ArrayList<Category> categories;
-    private ArrayList<JButton> categoriesButtons;
+    private List<Category> categories;
+    private List<JButton> categoriesButtons;
 
-    private ArrayList<JButton> productsButtons;
+    private List<JButton> productsButtons;
 
 
     public OrdersPanel(MainFrame frame, int tableNumber) {
         super(frame);
         this.tableNumber = tableNumber;
         categories = Database.getCategories();
-        products = Database.getProducts();
+        products = frame.dataProvider.fetchProducts();
         createHeader();
         createOrderButtons();
         createOrderTable();
@@ -75,7 +77,6 @@ public class OrdersPanel extends BasePanel {
         tableNumberLabel.setHorizontalAlignment(SwingConstants.CENTER);
         tableNumberLabel.setFont(new Font(Font.SERIF, Font.BOLD, 14));
         add(tableNumberLabel);
-
 
     }
 
@@ -183,10 +184,10 @@ public class OrdersPanel extends BasePanel {
         productsButtons = new ArrayList<>();
         int x = 5;
         int y = 54;
-        for (int i = 0; i < Database.getProducts().size(); i++) {
+        for (int i = 0; i < frame.dataProvider.fetchProducts().size(); i++) {
 
-            Product product = Database.getProducts().get(i);
-            if (product.getType() != type) {
+            Product product = frame.dataProvider.fetchProducts().get(i);
+            if (!product.getType().equals(type)) {
                 continue;
             }
 
@@ -208,7 +209,7 @@ public class OrdersPanel extends BasePanel {
                         if (selectedOrder.getTableNumber() == tableNumber) {
                             boolean isProductFound = false;
                             for (Product product1 : selectedOrder.getProducts()) {
-                                if (product1.getUid().equals(product.getUid())) {
+                                if (product1.getId().equals(product.getId())) {
                                     product1.increaseCount();
                                     isProductFound = true;
                                     break;
@@ -224,7 +225,6 @@ public class OrdersPanel extends BasePanel {
                 }
             });
             productsButtons.add(productButton);
-            //add(productButton);
             categoriesButtonPanel.add(productButton);
 
 
@@ -294,18 +294,14 @@ public class OrdersPanel extends BasePanel {
             categoriesButtons.add(categoryButton);
             categoriesButtonPanel.add(categoryButton);
 
-            if (category.getTitle().equals("Alcohol")) {
+            if (category.getTitle().equals("Alcoholic")) {
                 categoryButton.setBackground(Color.cyan);
-            } else if (category.getTitle().equals("NonAlcohol")) {
-                categoryButton.setBackground(Color.green);
-            } else if (category.getTitle().equals("Beer")) {
-                categoryButton.setBackground(Color.ORANGE);
+            } else if (category.getTitle().equals("NonAlcoholic")) {
+                categoryButton.setBackground(Color.orange);
             } else if (category.getTitle().equals("HotDrinks")) {
                 categoryButton.setBackground(Color.gray);
-            } else if (category.getTitle().equals("Food")) {
-                categoryButton.setBackground(Color.white);
-            } else if (category.getTitle().equals("Wine")) {
-                categoryButton.setBackground(new Color(255, 240, 220));
+            } else if (category.getTitle().equals("Foods")) {
+                categoryButton.setBackground(Color.pink);
             }
             categoryButton.setBounds(x, y, 120, 44);
             x += 125;
@@ -385,7 +381,7 @@ public class OrdersPanel extends BasePanel {
         if (frame.dataProvider.showQuestionMessage("Do you want to create a new order?") == 0) {
             int uid = frame.dataProvider.orders.size() + 1;
             String time = super.time.format(super.currentlyDate);
-            Order order = new Order(uid, time, tableNumber, new ArrayList<>());
+            Order order = new Order(uid, time, tableNumber, new ArrayList<>(), 0);
             frame.dataProvider.orders.add(order);
             refresh();
         }

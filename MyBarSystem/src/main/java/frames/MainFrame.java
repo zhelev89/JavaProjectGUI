@@ -1,6 +1,7 @@
 package frames;
 
 import javax.swing.*;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainFrame extends JFrame {
@@ -8,7 +9,7 @@ public class MainFrame extends JFrame {
     public MainDataProvider dataProvider;
     public MainRouter router;
 
-    public MainFrame() {
+    public MainFrame() throws IOException, InterruptedException {
         super("Advance Bar");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(895, 584);
