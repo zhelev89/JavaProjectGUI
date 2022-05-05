@@ -1,23 +1,17 @@
 package frames;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import database.Database;
 import models.*;
-import panels.OrdersPanel;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.text.html.Option;
-import javax.xml.crypto.Data;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.*;
 import java.util.List;
 
 public class MainDataProvider {
@@ -93,8 +87,23 @@ public class MainDataProvider {
         return products;
     }
 
-    public void fetchCategories() {
-        this.categories = Database.getCategories();
+    public List<Category> fetchCategories() throws IOException, InterruptedException {
+
+        client = HttpClient.newHttpClient();
+        request = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:8080/categories"))
+                .build();
+
+        response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        String json = response.body();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        categories = objectMapper.readValue(json, new TypeReference<>() {
+        });
+        return categories;
+
     }
 
     public boolean isPinCorrect(String pinCode) {

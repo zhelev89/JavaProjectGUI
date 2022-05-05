@@ -1,12 +1,10 @@
 package panels;
 
 import base.BasePanel;
-import database.Database;
 import frames.MainFrame;
 import models.Category;
 import models.Order;
 import models.Product;
-import models.ProductType;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -46,7 +44,7 @@ public class OrdersPanel extends BasePanel {
     public OrdersPanel(MainFrame frame, int tableNumber) throws IOException, InterruptedException {
         super(frame);
         this.tableNumber = tableNumber;
-        categories = Database.getCategories();
+        categories = frame.dataProvider.fetchCategories();
         products = frame.dataProvider.fetchProducts();
         createHeader();
         createOrderButtons();
@@ -170,7 +168,7 @@ public class OrdersPanel extends BasePanel {
         add(discountButton);
     }
 
-    public void createCategoriesButtonPanel() {
+    public void createCategoriesButtonPanel() throws IOException, InterruptedException {
         categoriesButtonPanel = new JPanel();
         categoriesButtonPanel.setBounds(5, 54, 495, 436);
         categoriesButtonPanel.setLayout(new GridLayout(5, 4, 5, 5));
@@ -180,14 +178,14 @@ public class OrdersPanel extends BasePanel {
         createCategoriesButton();
     }
 
-    public void createProductButton(ProductType type) throws IOException, InterruptedException {
+    public void createProductButton(String title) throws IOException, InterruptedException {
         productsButtons = new ArrayList<>();
         int x = 5;
         int y = 54;
         for (int i = 0; i < frame.dataProvider.fetchProducts().size(); i++) {
 
             Product product = frame.dataProvider.fetchProducts().get(i);
-            if (!product.getProductType().equals(type)) {
+            if (!product.getProductType().getType().equals(title)) {
                 continue;
             }
 
@@ -264,7 +262,13 @@ public class OrdersPanel extends BasePanel {
             public void actionPerformed(ActionEvent e) {
 
                 categoriesButtonPanel.removeAll();
-                createCategoriesButton();
+                try {
+                    createCategoriesButton();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                } catch (InterruptedException ex) {
+                    throw new RuntimeException(ex);
+                }
                 repaint();
                 validate();
             }
@@ -273,13 +277,13 @@ public class OrdersPanel extends BasePanel {
         categoriesButtonPanel.add(backButton);
     }
 
-    public void createCategoriesButton() {
+    public void createCategoriesButton() throws IOException, InterruptedException {
         categoriesButtons = new ArrayList<>();
         int x = 5;
         int y = 54;
-        for (int i = 0; i < Database.getCategories().size(); i++) {
+        for (int i = 0; i < frame.dataProvider.fetchCategories().size(); i++) {
 
-            Category category = Database.getCategories().get(i);
+            Category category = frame.dataProvider.fetchCategories().get(i);
             JButton categoryButton = new JButton(category.getTitle());
 
             categoryButton.addActionListener(new ActionListener() {
@@ -287,7 +291,7 @@ public class OrdersPanel extends BasePanel {
                 public void actionPerformed(ActionEvent e) {
                     categoriesButtonPanel.removeAll();
                     try {
-                        createProductButton(category.getProductType());
+                        createProductButton(category.getTitle());
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     } catch (InterruptedException ex) {
@@ -300,9 +304,9 @@ public class OrdersPanel extends BasePanel {
             categoriesButtons.add(categoryButton);
             categoriesButtonPanel.add(categoryButton);
 
-            if (category.getTitle().equals("Alcoholic")) {
+            if (category.getTitle().equals("Alcoholics")) {
                 categoryButton.setBackground(Color.cyan);
-            } else if (category.getTitle().equals("NonAlcoholic")) {
+            } else if (category.getTitle().equals("NonAlcoholics")) {
                 categoryButton.setBackground(Color.orange);
             } else if (category.getTitle().equals("HotDrinks")) {
                 categoryButton.setBackground(Color.gray);
