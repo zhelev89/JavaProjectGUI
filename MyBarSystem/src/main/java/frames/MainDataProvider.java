@@ -1,12 +1,15 @@
 package frames;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import database.Database;
 import models.*;
+import panels.OrdersPanel;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.html.Option;
 import javax.xml.crypto.Data;
 import java.awt.*;
 import java.io.IOException;
@@ -14,16 +17,14 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.*;
 import java.util.List;
-import java.util.Set;
 
 public class MainDataProvider {
 
     public MainFrame currentFrame;
 
-    public Set<User> users;
+    public List<User> users;
     public List<Table> tables;
     public List<Order> orders;
     public List<Category> categories;
@@ -32,52 +33,63 @@ public class MainDataProvider {
     public String loggedName;
     private HttpClient client;
     private HttpRequest request;
-    private HttpResponse<String> response;
     private ObjectMapper objectMapper;
+    private HttpResponse<String> response;
 
     public MainDataProvider(MainFrame currentFrame) {
         this.currentFrame = currentFrame;
 
     }
 
-    public void fetchUsers() throws IOException, InterruptedException {
-        this.client = HttpClient.newHttpClient();
-        this.request = HttpRequest.newBuilder()
+    public List<User> fetchUsers() throws IOException, InterruptedException {
+        client = HttpClient.newHttpClient();
+        request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:8080/users"))
                 .build();
 
-        this.response =
-                client.send(request, HttpResponse.BodyHandlers.ofString());
+        response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
         String json = response.body();
 
-        this.objectMapper = new ObjectMapper();
-        this.users = objectMapper.readValue(json, new TypeReference<>(){});
+        objectMapper = new ObjectMapper();
+
+        users = objectMapper.readValue(json, new TypeReference<>() {
+        });
+
+        return users;
     }
 
-    public void fetchTables() throws IOException, InterruptedException {
-        this.client = HttpClient.newHttpClient();
-        this.request = HttpRequest.newBuilder()
+    public List<Table> fetchTables() throws IOException, InterruptedException {
+        client = HttpClient.newHttpClient();
+        request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:8080/tables"))
                 .build();
 
-        this.response =
-                client.send(request, HttpResponse.BodyHandlers.ofString());
+        response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
         String json = response.body();
 
-        this.objectMapper = new ObjectMapper();
-        this.tables = objectMapper.readValue(json, new TypeReference<>(){});
+        objectMapper = new ObjectMapper();
+
+        tables = objectMapper.readValue(json, new TypeReference<>() {
+        });
+        return tables;
     }
 
-    public List<Product> fetchProducts() {
+    public List<Product> fetchProducts() throws IOException, InterruptedException {
+        client = HttpClient.newHttpClient();
+        request = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:8080/products"))
+                .build();
 
+        response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
+        String json = response.body();
 
+        ObjectMapper objectMapper = new ObjectMapper();
 
-        this.products = new ArrayList<>();
-
-
+        products = objectMapper.readValue(json, new TypeReference<>() {
+        });
         return products;
     }
 
@@ -151,4 +163,5 @@ public class MainDataProvider {
 
         }
     }
+
 }

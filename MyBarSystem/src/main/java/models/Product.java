@@ -12,7 +12,7 @@ import java.text.DecimalFormat;
 public class Product {
 
     private String id;
-    private ProductType type;
+    private ProductType productType;
     private String subtype;
     private String brand;
     private double price;
@@ -20,7 +20,7 @@ public class Product {
     private int count = 1;
 
     public String getTypeString() {
-        return getType().toString();
+        return getProductType().toString();
     }
 
     public String getCountString() {

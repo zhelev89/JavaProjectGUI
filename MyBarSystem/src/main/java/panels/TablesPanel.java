@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class TablesPanel extends BasePanel {
 
@@ -50,7 +51,13 @@ public class TablesPanel extends BasePanel {
             tableButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    frame.router.showOrdersPanel(tablesNumber);
+                    try {
+                        frame.router.showOrdersPanel(tablesNumber);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    } catch (InterruptedException ex) {
+                        throw new RuntimeException(ex);
+                    }
                 }
             });
 
