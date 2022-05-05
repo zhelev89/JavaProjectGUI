@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Category {
 
-    private ProductType type;
+    private Integer id;
+    private ProductType productType;
     private String title;
 }

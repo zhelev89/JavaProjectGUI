@@ -5,6 +5,8 @@ import panels.LoginPanel;
 import panels.OrdersPanel;
 import panels.TablesPanel;
 
+import java.io.IOException;
+
 public class MainRouter {
 
     public MainFrame frame;
@@ -25,7 +27,7 @@ public class MainRouter {
         frame.validate();
     }
 
-    public void showOrdersPanel(int tableNumber) {
+    public void showOrdersPanel(int tableNumber) throws IOException, InterruptedException {
         OrdersPanel ordersPanel = new OrdersPanel(frame, tableNumber);
         frame.setContentPane(ordersPanel);
         frame.validate();

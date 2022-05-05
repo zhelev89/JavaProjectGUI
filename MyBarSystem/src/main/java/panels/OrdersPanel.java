@@ -15,9 +15,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class OrdersPanel extends BasePanel {
 
@@ -43,7 +43,7 @@ public class OrdersPanel extends BasePanel {
     private List<JButton> productsButtons;
 
 
-    public OrdersPanel(MainFrame frame, int tableNumber) {
+    public OrdersPanel(MainFrame frame, int tableNumber) throws IOException, InterruptedException {
         super(frame);
         this.tableNumber = tableNumber;
         categories = Database.getCategories();
@@ -180,14 +180,14 @@ public class OrdersPanel extends BasePanel {
         createCategoriesButton();
     }
 
-    public void createProductButton(ProductType type) {
+    public void createProductButton(ProductType type) throws IOException, InterruptedException {
         productsButtons = new ArrayList<>();
         int x = 5;
         int y = 54;
         for (int i = 0; i < frame.dataProvider.fetchProducts().size(); i++) {
 
             Product product = frame.dataProvider.fetchProducts().get(i);
-            if (!product.getType().equals(type)) {
+            if (!product.getProductType().equals(type)) {
                 continue;
             }
 
@@ -286,7 +286,13 @@ public class OrdersPanel extends BasePanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     categoriesButtonPanel.removeAll();
-                    createProductButton(category.getType());
+                    try {
+                        createProductButton(category.getProductType());
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    } catch (InterruptedException ex) {
+                        throw new RuntimeException(ex);
+                    }
                     repaint();
                     validate();
                 }
