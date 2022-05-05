@@ -1,13 +1,9 @@
 package com.example.myBarSystemAPI.controllers;
 
 import com.example.myBarSystemAPI.converters.ProductTypeConverter;
-import com.example.myBarSystemAPI.converters.UserTypeConverter;
 import com.example.myBarSystemAPI.dataTransferObjects.productTypes.ProductTypeResponse;
 import com.example.myBarSystemAPI.dataTransferObjects.productTypes.ProductTypeSaveRequest;
-import com.example.myBarSystemAPI.dataTransferObjects.userTypes.UserTypeResponse;
-import com.example.myBarSystemAPI.dataTransferObjects.userTypes.UserTypeSaveRequest;
 import com.example.myBarSystemAPI.models.ProductType;
-import com.example.myBarSystemAPI.models.UserType;
 import com.example.myBarSystemAPI.services.ProductTypeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

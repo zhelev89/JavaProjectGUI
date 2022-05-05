@@ -10,6 +10,5 @@ import lombok.NoArgsConstructor;
 public class Category {
 
     private Integer id;
-    private ProductType productType;
     private String title;
 }
