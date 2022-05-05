@@ -3,7 +3,6 @@ package com.example.myBarSystemAPI.converters;
 import com.example.myBarSystemAPI.dataTransferObjects.users.UserResponse;
 import com.example.myBarSystemAPI.dataTransferObjects.users.UserSaveRequest;
 import com.example.myBarSystemAPI.models.User;
-import com.example.myBarSystemAPI.services.UserService;
 import com.example.myBarSystemAPI.services.UserTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
