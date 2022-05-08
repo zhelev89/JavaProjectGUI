@@ -2,6 +2,7 @@ package frames;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.net.http.HttpClient;
 import java.util.ArrayList;
 
 public class MainFrame extends JFrame {

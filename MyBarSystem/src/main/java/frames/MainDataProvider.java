@@ -12,6 +12,9 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class MainDataProvider {
@@ -27,26 +30,23 @@ public class MainDataProvider {
     public String loggedName;
     private HttpClient client;
     private HttpRequest request;
+    private String json;
     private ObjectMapper objectMapper;
     private HttpResponse<String> response;
 
     public MainDataProvider(MainFrame currentFrame) {
         this.currentFrame = currentFrame;
-
+        this.client = HttpClient.newHttpClient();
+        this.objectMapper = new ObjectMapper();
     }
 
     public List<User> fetchUsers() throws IOException, InterruptedException {
-        client = HttpClient.newHttpClient();
         request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:8080/users"))
                 .build();
 
         response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        String json = response.body();
-
-        objectMapper = new ObjectMapper();
-
+        json = response.body();
         users = objectMapper.readValue(json, new TypeReference<>() {
         });
 
@@ -54,54 +54,41 @@ public class MainDataProvider {
     }
 
     public List<Table> fetchTables() throws IOException, InterruptedException {
-        client = HttpClient.newHttpClient();
         request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:8080/tables"))
                 .build();
 
         response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        String json = response.body();
-
-        objectMapper = new ObjectMapper();
-
+        json = response.body();
         tables = objectMapper.readValue(json, new TypeReference<>() {
         });
+
         return tables;
     }
 
     public List<Product> fetchProducts() throws IOException, InterruptedException {
-        client = HttpClient.newHttpClient();
         request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:8080/products"))
                 .build();
 
         response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        String json = response.body();
-
-        ObjectMapper objectMapper = new ObjectMapper();
-
+        json = response.body();
         products = objectMapper.readValue(json, new TypeReference<>() {
         });
+
         return products;
     }
 
     public List<Category> fetchCategories() throws IOException, InterruptedException {
-
-        client = HttpClient.newHttpClient();
         request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:8080/categories"))
                 .build();
 
         response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        String json = response.body();
-
-        ObjectMapper objectMapper = new ObjectMapper();
-
+        json = response.body();
         categories = objectMapper.readValue(json, new TypeReference<>() {
         });
+
         return categories;
 
     }
