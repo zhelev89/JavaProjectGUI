@@ -2,13 +2,14 @@ package com.example.myBarSystemAPI.services;
 
 import com.example.myBarSystemAPI.models.UserType;
 
+import java.util.List;
 import java.util.Set;
 
 public interface UserTypeService {
 
     UserType save(UserType userType);
 
-    Set<UserType> findAll();
+    List<UserType> findAll();
 
     UserType findById(Integer id);
 

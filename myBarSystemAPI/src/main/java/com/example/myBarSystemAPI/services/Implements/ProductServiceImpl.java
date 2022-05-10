@@ -10,6 +10,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -29,8 +30,8 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
-    public Set<Product> findAll() {
-        return new HashSet<>(productRepository.findAll());
+    public List<Product> findAll() {
+        return productRepository.findAll();
     }
 
     public Product findById(Integer id) {

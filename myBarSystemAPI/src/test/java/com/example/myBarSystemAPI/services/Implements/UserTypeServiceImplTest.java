@@ -3,8 +3,9 @@ package com.example.myBarSystemAPI.services.Implements;
 import com.example.myBarSystemAPI.exceptions.DuplicateRecordException;
 import com.example.myBarSystemAPI.exceptions.NotFoundRecordException;
 import com.example.myBarSystemAPI.models.User;
-import com.example.myBarSystemAPI.repositories.UserRepository;
-import com.example.myBarSystemAPI.services.UserService;
+import com.example.myBarSystemAPI.models.UserType;
+import com.example.myBarSystemAPI.repositories.UserTypeRepository;
+import com.example.myBarSystemAPI.services.UserTypeService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,57 +17,55 @@ import org.springframework.dao.DataIntegrityViolationException;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @ExtendWith(MockitoExtension.class)
-class UserServiceImplTest {
+public class UserTypeServiceImplTest {
 
     @Mock
-    private UserRepository userRepository;
+    private UserTypeRepository userTypeRepository;
 
-    private UserServiceImpl userServiceImpl;
+    private UserTypeServiceImpl userTypeServiceImpl;
 
     @BeforeEach
     void setUp() {
-        userServiceImpl = new UserServiceImpl(userRepository);
+        userTypeServiceImpl = new UserTypeServiceImpl(userTypeRepository);
     }
 
     @Test
     void verifySaveThrowNullPointerException() {
-        User user = null;
+        UserType userType = null;
 
         Assertions.assertThrows(NullPointerException.class,
-                () -> userServiceImpl.save(user));
+                () -> userTypeServiceImpl.save(userType));
     }
 
     @Test
     void verifySaveThrowDuplicateRecordException() {
-        User user = new User();
+        UserType userType = new UserType();
 
-        String expectedMessage = String.format("User with name:%s, already exist.", user.getName());
+        String expectedMessage = String.format("UserType with type:%s, is already exist", userType.getType());
 
-        Mockito.when(userRepository.save(user))
+        Mockito.when(userTypeRepository.save(userType))
                 .thenThrow(DataIntegrityViolationException.class);
 
         DuplicateRecordException exception = Assertions.assertThrows(DuplicateRecordException.class,
-                () -> userServiceImpl.save(user));
+                () -> userTypeServiceImpl.save(userType));
 
         Assertions.assertEquals(expectedMessage, exception.getMessage());
     }
 
     @Test
     void verifySaveSuccess() {
-        User user = new User();
-        userServiceImpl.save(user);
+        UserType userType = new UserType();
+        userTypeServiceImpl.save(userType);
 
-        Mockito.verify(userRepository, Mockito.times(1)).save(user);
+        Mockito.verify(userTypeRepository, Mockito.times(1)).save(userType);
     }
 
     @Test
     void verifyFindAll() {
-        userServiceImpl.findAll();
+        userTypeServiceImpl.findAll();
 
-        Mockito.verify(userRepository, Mockito.times(1)).findAll();
+        Mockito.verify(userTypeRepository, Mockito.times(1)).findAll();
     }
 
     @Test
@@ -74,16 +73,16 @@ class UserServiceImplTest {
         Integer id = null;
 
         Assertions.assertThrows(NullPointerException.class,
-                () -> userServiceImpl.findById(id));
+                () -> userTypeServiceImpl.findById(id));
     }
 
     @Test
     void verifyFindByIdThrowNotFoundRecordException() {
         Integer id = 1;
-        String expectedMessage = String.format("User with id:%s, not found", id);
+        String expectedMessage = String.format("UserType with id:%s, not found", id);
 
         NotFoundRecordException exception = Assertions.assertThrows(NotFoundRecordException.class,
-                () -> userServiceImpl.findById(id));
+                () -> userTypeServiceImpl.findById(id));
 
         Assertions.assertEquals(expectedMessage, exception.getMessage());
     }
@@ -91,69 +90,69 @@ class UserServiceImplTest {
     @Test
     void verifyFindByIdSuccess() {
         Integer id = 1;
-        Mockito.when(userRepository.findById(id))
-                .thenReturn(Optional.of(User.builder()
+        Mockito.when(userTypeRepository.findById(id))
+                .thenReturn(Optional.of(UserType.builder()
                         .id(id)
                         .build()));
 
-        userServiceImpl.findById(id);
+        userTypeServiceImpl.findById(id);
 
-        Mockito.verify(userRepository, Mockito.times(1)).findById(id);
+        Mockito.verify(userTypeRepository, Mockito.times(1)).findById(id);
     }
 
     @Test
-    void verifyFindByNameThrowNullPointerException() {
-        String name = null;
+    void verifyFindByTypeThrowNullPointerException() {
+        String type = null;
 
         Assertions.assertThrows(NullPointerException.class,
-                () -> userServiceImpl.findByName(name));
+                () -> userTypeServiceImpl.findByType(type));
     }
 
     @Test
     void verifyFindByNameThrowNotFoundException() {
-        String name = "Gosho";
-        String expectedMessage = String.format("User with name: %s, not found", name);
+        String type = "Admin";
+        String expectedMessage = String.format("UserType with type:%s, not found", type);
 
         NotFoundRecordException exception = Assertions.assertThrows(NotFoundRecordException.class,
-                () -> userServiceImpl.findByName(name));
+                () -> userTypeServiceImpl.findByType(type));
 
         Assertions.assertEquals(expectedMessage, exception.getMessage());
     }
 
     @Test
     void verifyFindByNameSuccess() {
-        String name = "Gosho";
+        String type = "Admin";
 
-        Mockito.when(userRepository.findByName(name))
-                .thenReturn(Optional.of(User.builder()
-                        .name(name)
+        Mockito.when(userTypeRepository.findByType(type))
+                .thenReturn(Optional.of(UserType.builder()
+                        .type(type)
                         .build()));
 
-        userServiceImpl.findByName(name);
+        userTypeServiceImpl.findByType(type);
 
-        Mockito.verify(userRepository, Mockito.times(1)).findByName(name);
+        Mockito.verify(userTypeRepository, Mockito.times(1)).findByType(type);
     }
 
     @Test
     void verifyUpdateThrowExceptionWhenUpdateUserIsNull() {
-        User updatedUser = null;
+        UserType updatedUserType = null;
         Assertions.assertThrows(NullPointerException.class,
-                () -> userServiceImpl.update(updatedUser, updatedUser.getId()));
+                () -> userTypeServiceImpl.update(updatedUserType, updatedUserType.getId()));
     }
 
     @Test
     void verifyUpdateThrowExceptionWhenUpdatedUserIdIsNull() {
-        User user = new User();
+        UserType userType = new UserType();
 
         Assertions.assertThrows(NullPointerException.class,
-                () -> userServiceImpl.update(user, user.getId()));
+                () -> userTypeServiceImpl.update(userType, userType.getId()));
     }
 
     @Test
     void deleteById() {
         Integer id = 1;
-        userServiceImpl.deleteById(id);
+        userTypeServiceImpl.deleteById(id);
 
-        Mockito.verify(userRepository, Mockito.times(1)).deleteById(id);
+        Mockito.verify(userTypeRepository, Mockito.times(1)).deleteById(id);
     }
 }

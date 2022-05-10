@@ -2,13 +2,14 @@ package com.example.myBarSystemAPI.services;
 
 import com.example.myBarSystemAPI.models.Product;
 
+import java.util.List;
 import java.util.Set;
 
 public interface ProductService {
 
     Product save(Product product);
 
-    Set<Product> findAll();
+    List<Product> findAll();
 
     Product findById(Integer id);
 

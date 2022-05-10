@@ -2,13 +2,14 @@ package com.example.myBarSystemAPI.services;
 
 import com.example.myBarSystemAPI.models.Table;
 
+import java.util.List;
 import java.util.Set;
 
 public interface TableService {
 
     Table save(Table table);
 
-    Set<Table> findAll();
+    List<Table> findAll();
 
     Table findById(Integer id);
 

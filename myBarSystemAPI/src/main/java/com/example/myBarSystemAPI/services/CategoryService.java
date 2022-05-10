@@ -2,13 +2,14 @@ package com.example.myBarSystemAPI.services;
 
 import com.example.myBarSystemAPI.models.Category;
 
+import java.util.List;
 import java.util.Set;
 
 public interface CategoryService {
 
     Category save(Category category);
 
-    Set<Category> findAll();
+    List<Category> findAll();
 
     Category findById(Integer id);
 
