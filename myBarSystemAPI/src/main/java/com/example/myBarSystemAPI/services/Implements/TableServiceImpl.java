@@ -27,16 +27,18 @@ public class TableServiceImpl implements TableService {
         }
     }
 
-    public Set<Table> findAll() {
-        return new HashSet<>(tableRepository.findAll());
+    public List<Table> findAll() {
+        return tableRepository.findAll();
     }
 
     public Table findById(Integer id) {
+        Objects.requireNonNull(id);
         return tableRepository.findById(id).orElseThrow(
                 () -> new NotFoundRecordException(String.format("Table with id:%s, not found", id)));
     }
 
     public Table findByNumber(Integer number) {
+        Objects.requireNonNull(number);
         return tableRepository.findByNumber(number).orElseThrow(
                 () -> new NotFoundRecordException(String.format("Table with number:%s, not found", number)));
     }
@@ -44,5 +46,4 @@ public class TableServiceImpl implements TableService {
     public void deleteByNumber(Integer number) {
         tableRepository.deleteByNumber(number);
     }
-
 }

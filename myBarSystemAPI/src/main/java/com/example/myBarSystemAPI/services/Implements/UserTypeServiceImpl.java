@@ -10,6 +10,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -25,12 +26,12 @@ public class UserTypeServiceImpl implements UserTypeService {
             return userTypeRepository.save(userType);
         } catch (DataIntegrityViolationException ex) {
             throw new DuplicateRecordException(
-                    String.format("UserType with name:%s, is already exist", userType.getType()));
+                    String.format("UserType with type:%s, is already exist", userType.getType()));
         }
     }
 
-    public Set<UserType> findAll() {
-        return new HashSet<>(userTypeRepository.findAll());
+    public List<UserType> findAll() {
+        return userTypeRepository.findAll();
     }
 
     public UserType findById(Integer id) {
@@ -40,11 +41,11 @@ public class UserTypeServiceImpl implements UserTypeService {
                         String.format("UserType with id:%s, not found", id)));
     }
 
-    public UserType findByType(String name) {
-        Objects.requireNonNull(name);
-        return userTypeRepository.findByType(name).orElseThrow(
+    public UserType findByType(String type) {
+        Objects.requireNonNull(type);
+        return userTypeRepository.findByType(type).orElseThrow(
                 () -> new NotFoundRecordException(
-                        String.format("UserType with name:%s, not found", name)));
+                        String.format("UserType with type:%s, not found", type)));
     }
 
     public UserType update(UserType updatedUserType, Integer id) {

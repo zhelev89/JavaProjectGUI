@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -29,7 +30,7 @@ public class TableController {
     }
 
     @GetMapping
-    public ResponseEntity<Set<Table>> findAll() {
+    public ResponseEntity<List<Table>> findAll() {
         return ResponseEntity.status(HttpStatus.FOUND).body(tableService.findAll());
     }
 
