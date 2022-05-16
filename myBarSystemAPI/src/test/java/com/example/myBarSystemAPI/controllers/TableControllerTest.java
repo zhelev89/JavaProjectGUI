@@ -13,8 +13,7 @@ import org.springframework.http.MediaType;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(TableController.class)
@@ -84,5 +83,16 @@ public class TableControllerTest extends BaseControllerTest {
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id", is(1)))
                 .andExpect(jsonPath("$.number", is(number)));
+    }
+
+    @Test
+    void verifyDeleteByNumber() throws Exception {
+        Integer number = 1;
+        String numberJson = objectMapper.writeValueAsString(number);
+
+        mockMvc.perform(delete("/tables/number/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(numberJson))
+                .andExpect(status().isGone());
     }
 }
