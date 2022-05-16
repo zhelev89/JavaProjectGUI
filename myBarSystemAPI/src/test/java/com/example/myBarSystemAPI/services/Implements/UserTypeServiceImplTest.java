@@ -32,10 +32,9 @@ public class UserTypeServiceImplTest {
 
     @Test
     void verifySaveThrowNullPointerException() {
-        UserType userType = null;
 
         Assertions.assertThrows(NullPointerException.class,
-                () -> userTypeServiceImpl.save(userType));
+                () -> userTypeServiceImpl.save(null));
     }
 
     @Test
@@ -70,10 +69,9 @@ public class UserTypeServiceImplTest {
 
     @Test
     void verifyFindByIdThrowNullPointerException() {
-        Integer id = null;
 
         Assertions.assertThrows(NullPointerException.class,
-                () -> userTypeServiceImpl.findById(id));
+                () -> userTypeServiceImpl.findById(null));
     }
 
     @Test
@@ -102,10 +100,9 @@ public class UserTypeServiceImplTest {
 
     @Test
     void verifyFindByTypeThrowNullPointerException() {
-        String type = null;
 
         Assertions.assertThrows(NullPointerException.class,
-                () -> userTypeServiceImpl.findByType(type));
+                () -> userTypeServiceImpl.findByType(null));
     }
 
     @Test
