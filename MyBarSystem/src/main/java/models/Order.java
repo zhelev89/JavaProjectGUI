@@ -5,27 +5,28 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Order {
-    private int uid = 0;
+
+    private Integer id;
     private String time;
     private int tableNumber;
-    private ArrayList<Product> products;
+    private List<Product> products;
     private int discountPercent;
 
     public String getUidString() {
-        return Integer.toString(getUid());
+        return Integer.toString(getId());
     }
 
     public String getTime() {
         return this.time + "h";
     }
 
-    public ArrayList<Product> getProducts() {
+    public List<Product> getProducts() {
         return products;
     }
 

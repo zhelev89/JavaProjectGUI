@@ -12,9 +12,6 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 public class MainDataProvider {
@@ -54,14 +51,14 @@ public class MainDataProvider {
     }
 
     public List<Table> fetchTables() throws IOException, InterruptedException {
-        request = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:8080/tables"))
-                .build();
+            request = HttpRequest.newBuilder()
+                    .uri(URI.create("http://localhost:8080/tables"))
+                    .build();
 
-        response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        json = response.body();
-        tables = objectMapper.readValue(json, new TypeReference<>() {
-        });
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            json = response.body();
+            tables = objectMapper.readValue(json, new TypeReference<>() {
+            });
 
         return tables;
     }
@@ -96,8 +93,9 @@ public class MainDataProvider {
     public boolean isPinCorrect(String pinCode) {
         for (User user : users) {
             if (pinCode.equals(user.getPinCode())) {
+                System.out.println(user.getPhone());
                 this.loggedName = user.getName();
-                this.loggedType = user.getUserType().getType();
+                this.loggedType = user.getUserType().toString();
                 return true;
             }
         }
