@@ -7,6 +7,5 @@ import lombok.Data;
 @Builder
 public class ProductTypeResponse {
 
-    private Integer id;
     private String type;
 }

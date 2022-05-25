@@ -3,10 +3,18 @@ package com.example.myBarSystemAPI.converters;
 import com.example.myBarSystemAPI.dataTransferObjects.products.ProductResponse;
 import com.example.myBarSystemAPI.dataTransferObjects.products.ProductSaveRequest;
 import com.example.myBarSystemAPI.models.Product;
+import com.example.myBarSystemAPI.services.ProductTypeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ProductConverter {
+
+    @Autowired
+    private ProductTypeConverter productTypeConverter;
+
+    @Autowired
+    private ProductTypeService productTypeService;
 
     public Product convert(ProductSaveRequest productSaveRequest) {
         return Product.builder()
@@ -14,7 +22,7 @@ public class ProductConverter {
                 .brand(productSaveRequest.getBrand())
                 .price(productSaveRequest.getPrice())
                 .quantity(productSaveRequest.getQuantity())
-                .productType(productSaveRequest.getProductType())
+                .productType(productTypeService.findByType(productSaveRequest.getProductType().getType()))
                 .build();
     }
 
@@ -25,7 +33,7 @@ public class ProductConverter {
                 .brand(product.getBrand())
                 .price(product.getPrice())
                 .quantity(product.getQuantity())
-                .productType(product.getProductType())
+                .productType(productTypeConverter.convert(product.getProductType()))
                 .build();
     }
 }

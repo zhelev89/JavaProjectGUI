@@ -1,6 +1,5 @@
 package com.example.myBarSystemAPI.models;
 
-import com.example.myBarSystemAPI.dataTransferObjects.userTypes.UserTypeResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -34,6 +33,6 @@ public class User {
     @Column(name = "pin", nullable = false, unique = true)
     private String pinCode;
 
-    @ManyToOne
+    @Enumerated(EnumType.STRING)
     private UserType userType;
 }

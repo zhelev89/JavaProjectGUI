@@ -16,7 +16,6 @@ public class ProductTypeConverter {
 
     public ProductTypeResponse convert(ProductType productType) {
         return ProductTypeResponse.builder()
-                .id(productType.getId())
                 .type(productType.getType())
                 .build();
     }

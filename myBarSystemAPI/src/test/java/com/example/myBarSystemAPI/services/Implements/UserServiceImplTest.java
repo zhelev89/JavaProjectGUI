@@ -4,7 +4,6 @@ import com.example.myBarSystemAPI.exceptions.DuplicateRecordException;
 import com.example.myBarSystemAPI.exceptions.NotFoundRecordException;
 import com.example.myBarSystemAPI.models.User;
 import com.example.myBarSystemAPI.repositories.UserRepository;
-import com.example.myBarSystemAPI.services.UserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,8 +14,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.dao.DataIntegrityViolationException;
 
 import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceImplTest {

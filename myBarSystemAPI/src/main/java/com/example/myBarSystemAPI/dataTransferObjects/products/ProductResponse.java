@@ -1,6 +1,6 @@
 package com.example.myBarSystemAPI.dataTransferObjects.products;
 
-import com.example.myBarSystemAPI.models.ProductType;
+import com.example.myBarSystemAPI.dataTransferObjects.productTypes.ProductTypeResponse;
 import lombok.Builder;
 import lombok.Data;
 
@@ -13,5 +13,5 @@ public class ProductResponse {
     private String brand;
     private double price;
     private double quantity;
-    private ProductType productType;
+    private ProductTypeResponse productType;
 }

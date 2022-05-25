@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -28,11 +29,11 @@ public class ProductTypeController {
     }
 
     @GetMapping
-    private ResponseEntity<Set<ProductTypeResponse>> findAll() {
+    private ResponseEntity<List<ProductTypeResponse>> findAll() {
         return ResponseEntity.status(HttpStatus.FOUND).body(
                 productTypeService.findAll().stream()
                         .map(productType -> productTypeConverter.convert(productType))
-                        .collect(Collectors.toSet()));
+                        .collect(Collectors.toList()));
     }
 
     @GetMapping(value = "/id/{id}")

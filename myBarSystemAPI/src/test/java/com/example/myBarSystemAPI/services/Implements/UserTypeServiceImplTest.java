@@ -2,10 +2,7 @@ package com.example.myBarSystemAPI.services.Implements;
 
 import com.example.myBarSystemAPI.exceptions.DuplicateRecordException;
 import com.example.myBarSystemAPI.exceptions.NotFoundRecordException;
-import com.example.myBarSystemAPI.models.User;
 import com.example.myBarSystemAPI.models.UserType;
-import com.example.myBarSystemAPI.repositories.UserTypeRepository;
-import com.example.myBarSystemAPI.services.UserTypeService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

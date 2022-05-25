@@ -1,17 +1,12 @@
 package com.example.myBarSystemAPI.controllers;
 
-import com.example.myBarSystemAPI.converters.UserTypeConverter;
 import com.example.myBarSystemAPI.dataTransferObjects.userTypes.UserTypeResponse;
 import com.example.myBarSystemAPI.dataTransferObjects.userTypes.UserTypeSaveRequest;
 import com.example.myBarSystemAPI.models.UserType;
-import com.example.myBarSystemAPI.services.UserTypeService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.core.Is.is;
 import static org.mockito.ArgumentMatchers.any;
@@ -43,7 +38,6 @@ public class UserTypeControllerTest extends BaseControllerTest {
 
         when(userTypeConverter.convert(any(UserType.class)))
                 .thenReturn(UserTypeResponse.builder()
-                        .id(1)
                         .type(userTypeSaveRequest.getType())
                         .build());
 
@@ -52,7 +46,6 @@ public class UserTypeControllerTest extends BaseControllerTest {
                         .content(userTypeSaveRequestJson))
                 .andExpect(status().isCreated())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id", is(1)))
                 .andExpect(jsonPath("$.type", is(userTypeSaveRequest.getType())));
     }
 
@@ -61,29 +54,6 @@ public class UserTypeControllerTest extends BaseControllerTest {
         mockMvc.perform(get("/userTypes"))
                 .andExpect(status().isFound())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
-    }
-
-    @Test
-    void verifyFindById() throws Exception {
-        Integer id = 1;
-
-        String idJson = objectMapper.writeValueAsString(id);
-
-        when(userTypeService.findById(id))
-                .thenReturn(UserType.builder()
-                        .id(id)
-                        .build());
-
-        when(userTypeConverter.convert(any(UserType.class)))
-                .thenReturn(UserTypeResponse.builder()
-                        .id(id)
-                        .build());
-
-        mockMvc.perform(get("/userTypes/id/1")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(idJson))
-                .andExpect(status().isFound())
-                .andExpect(jsonPath("$.id", is(id)));
     }
 
     @Test
@@ -125,7 +95,6 @@ public class UserTypeControllerTest extends BaseControllerTest {
 
         when(userTypeConverter.convert(any(UserType.class)))
                 .thenReturn(UserTypeResponse.builder()
-                        .id(updatedUserType.getId())
                         .type(updatedUserType.getType())
                         .build());
 

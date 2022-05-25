@@ -1,6 +1,6 @@
 package com.example.myBarSystemAPI.dataTransferObjects.users;
 
-import com.example.myBarSystemAPI.dataTransferObjects.userTypes.UserTypeResponse;
+import com.example.myBarSystemAPI.models.UserType;
 import lombok.Builder;
 import lombok.Data;
 
@@ -8,9 +8,8 @@ import lombok.Data;
 @Builder
 public class UserResponse {
 
-    private Integer id;
     private String name;
     private String phone;
     private String pinCode;
-    private UserTypeResponse userType;
+    private UserType userType;
 }

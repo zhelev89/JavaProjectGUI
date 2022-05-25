@@ -1,6 +1,5 @@
 package com.example.myBarSystemAPI.controllers;
 
-import com.example.myBarSystemAPI.converters.UserConverter;
 import com.example.myBarSystemAPI.dataTransferObjects.users.UserResponse;
 import com.example.myBarSystemAPI.dataTransferObjects.users.UserSaveRequest;
 import com.example.myBarSystemAPI.models.User;
@@ -43,7 +42,6 @@ public class UserControllerTest extends BaseControllerTest{
 
         Mockito.when(userConverter.convert(Mockito.any(User.class)))
                 .thenReturn(UserResponse.builder()
-                        .id(1)
                         .name(userSaveRequest.getName())
                         .phone(userSaveRequest.getPhone())
                         .pinCode(userSaveRequest.getPinCode())
@@ -54,7 +52,6 @@ public class UserControllerTest extends BaseControllerTest{
                         .content(userSaveRequestJson))
                 .andExpect(status().isCreated())
                 .andExpect(MockMvcResultMatchers.content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id", is(1)))
                 .andExpect(jsonPath("$.name", is(userSaveRequest.getName())));
     }
 
@@ -63,30 +60,6 @@ public class UserControllerTest extends BaseControllerTest{
         mockMvc.perform(get("/users"))
                 .andExpect(status().isFound())
                 .andExpect(MockMvcResultMatchers.content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
-    }
-
-    @Test
-    void verifyFindById() throws Exception {
-        Integer id = 1;
-
-        String idJson = objectMapper.writeValueAsString(id);
-
-        Mockito.when(userService.findById(id))
-                .thenReturn(User.builder()
-                        .id(id)
-                        .build());
-
-        Mockito.when(userConverter.convert(Mockito.any(User.class)))
-                .thenReturn(UserResponse.builder()
-                        .id(id)
-                        .build());
-
-        mockMvc.perform(get("/users/id/1")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(idJson))
-                .andExpect(status().isFound())
-                .andExpect(MockMvcResultMatchers.content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id", is(id)));
     }
 
     @Test

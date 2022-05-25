@@ -7,6 +7,5 @@ import lombok.Data;
 @Builder
 public class CategoryResponse {
 
-    private Integer id;
     private String title;
 }

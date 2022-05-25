@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -30,11 +31,11 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<Set<ProductResponse>> findAll() {
+    public ResponseEntity<List<ProductResponse>> findAll() {
         return ResponseEntity.status(HttpStatus.FOUND).body(
                 productService.findAll().stream()
                         .map(product -> productConverter.convert(product))
-                        .collect(Collectors.toSet()));
+                        .collect(Collectors.toList()));
     }
 
     @GetMapping(value = "/id/{id}")
