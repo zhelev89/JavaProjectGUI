@@ -37,6 +37,6 @@ public class Product {
     @Column(name = "quantities", nullable = false)
     private double quantity;
 
-    @ManyToOne
+    @Enumerated(EnumType.STRING)
     private ProductType productType;
 }

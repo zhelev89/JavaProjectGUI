@@ -1,6 +1,5 @@
 package frames;
 
-import panels.AdminPanel;
 import panels.LoginPanel;
 import panels.OrdersPanel;
 import panels.TablesPanel;
@@ -33,9 +32,4 @@ public class MainRouter {
         frame.validate();
     }
 
-    public void showAdminPanel() {
-        AdminPanel adminPanel = new AdminPanel(frame);
-        frame.setContentPane(adminPanel);
-        frame.validate();
-    }
 }

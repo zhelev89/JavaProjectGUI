@@ -50,12 +50,7 @@ public class LoginPanel extends BasePanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (frame.dataProvider.isPinCorrect(pinCodeField.getText())) {
-                    if (pinCodeField.getText().equals("9999")) {
-                        frame.router.showAdminPanel();
-                        return;
-                    }
                     frame.router.showTablesPanel();
-
                 } else {
                     frame.dataProvider.showErrorMessage("Wrong pin code");
                 }

@@ -27,7 +27,7 @@ public class OrdersPanel extends BasePanel {
     private JTable orderTable;
     private Order selectedOrder;
     private int selectedRow;
-    private ArrayList<Order> tablesOrder;
+    private List<Order> tablesOrder;
     //product table
     private DefaultTableModel productTableModel;
     private JTable productTable;
@@ -185,7 +185,7 @@ public class OrdersPanel extends BasePanel {
         for (int i = 0; i < frame.dataProvider.fetchProducts().size(); i++) {
 
             Product product = frame.dataProvider.fetchProducts().get(i);
-            if (!product.getProductType().getType().equals(title)) {
+            if (!product.getProductType().toString().equals(title)) {
                 continue;
             }
 
