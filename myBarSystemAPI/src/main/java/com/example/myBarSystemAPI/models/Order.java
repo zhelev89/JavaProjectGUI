@@ -26,9 +26,6 @@ public class Order {
     @Column(nullable = false)
     private int tableNumber;
 
-    @ManyToMany
-    private List<Product> products;
-
     @Column(nullable = false)
     private int discountPercent;
 }
